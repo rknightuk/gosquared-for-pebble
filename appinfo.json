@@ -1,0 +1,27 @@
+{
+  "uuid": "6aecc4f8-7df0-4440-8185-25367b61859a",
+  "shortName": "GoSquared",
+  "longName": "GoSquared for Pebble",
+  "companyName": "Robb Lewis",
+  "versionCode": 1,
+  "versionLabel": "1.0",
+  "capabilities": [ "configurable" ],
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "KEY_VISITORS": 0,
+    "KEY_STATS": 1,
+    "KEY_ERROR": 2
+  },
+  "resources": {
+    "media": [
+      {
+        "menuIcon": true,
+        "type": "png",
+        "name": "IMAGE_MENU_ICON",
+        "file": "img/menu-icon.png"
+      }
+    ]
+  }
+}
