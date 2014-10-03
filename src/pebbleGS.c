@@ -66,7 +66,10 @@ static void path_layer_update_callback(Layer *me, GContext *ctx) {
 	GPoint center = {72,85};
 
 	graphics_context_set_stroke_color(ctx, GColorWhite);
-	graphics_draw_arc(ctx, center, 62, 3, 180, percentage);
+	graphics_draw_arc(ctx, center, 62, 1, 180, 360);
+	graphics_draw_arc(ctx, center, 57, 1, 180, 360);
+	graphics_draw_arc(ctx, center, 62, 5, 180, percentage);
+	graphics_draw_arc(ctx, center, 62, 5, 359, 360);
 }
 
 void process_tuple(Tuple *t)
