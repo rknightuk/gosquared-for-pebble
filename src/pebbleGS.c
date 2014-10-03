@@ -3,6 +3,9 @@
 Window* window;
 TextLayer *visitor_layer, *max_layer;
 Layer *path_layer;
+Layer *window_layer;
+GRect bounds;
+int percentage;
 
 char visitor_buffer[32], stats_buffer[64], error_buffer[64];
 
@@ -62,7 +65,7 @@ static void path_layer_update_callback(Layer *me, GContext *ctx) {
 	GPoint center = {72,85};
 
 	graphics_context_set_stroke_color(ctx, GColorWhite);
-	graphics_draw_arc(ctx, center, 62, 3, 180, 360);
+	graphics_draw_arc(ctx, center, 62, 3, 180, percentage);
 }
 
 void process_tuple(Tuple *t)
@@ -78,6 +81,10 @@ void process_tuple(Tuple *t)
 			snprintf(visitor_buffer, sizeof("XXXXXX"), "%d", value);
 			text_layer_set_font(visitor_layer, fonts_get_system_font("RESOURCE_ID_BITHAM_30_BLACK"));
 			text_layer_set_text(visitor_layer, (char*) &visitor_buffer);
+			percentage = 270;
+			path_layer = layer_create(bounds);
+			layer_set_update_proc(path_layer, path_layer_update_callback);
+			layer_add_child(window_layer, path_layer);
 			break;
 		case KEY_STATS:
 			snprintf(stats_buffer, sizeof("XXXXXX active xxxx max: XXXXXX xxxx avg: XXXXXX"), "%s", string_value);
@@ -168,12 +175,12 @@ void init()
 	app_message_register_inbox_received(in_received_handler);					 
 	app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());		//Largest possible input and output buffer sizes
 
-	Layer *window_layer = window_get_root_layer(window);
-	GRect bounds = layer_get_frame(window_layer);
+	window_layer = window_get_root_layer(window);
+	bounds = layer_get_frame(window_layer);
 
-	path_layer = layer_create(bounds);
-	layer_set_update_proc(path_layer, path_layer_update_callback);
-	layer_add_child(window_layer, path_layer);
+	// path_layer = layer_create(bounds);
+	// layer_set_update_proc(path_layer, path_layer_update_callback);
+	// layer_add_child(window_layer, path_layer);
 	
 	//Register to receive minutely updates
 	tick_timer_service_subscribe(MINUTE_UNIT, tick_callback);
