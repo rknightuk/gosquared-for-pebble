@@ -12,7 +12,8 @@
   "appKeys": {
     "KEY_VISITORS": 0,
     "KEY_STATS": 1,
-    "KEY_ERROR": 2
+    "KEY_ERROR": 2,
+    "KEY_PERCENTAGE": 3
   },
   "resources": {
     "media": [

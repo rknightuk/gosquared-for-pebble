@@ -27,10 +27,12 @@ var getStats = function() {
 	avg = response.summary.avg;
 	avg = avg.toFixed(2);
 	active = response.active;
+	percentage = Math.round((visitors / max * 100) * 1.8) + 180;
 	meta = active + ' active \navg: ' + avg + ' max: ' + max
 
 	dict = {
-		"KEY_VISITORS" : visitors,
+		"KEY_PERCENTAGE": percentage,
+		"KEY_VISITORS": visitors,
 		"KEY_STATS": meta
 	};
 

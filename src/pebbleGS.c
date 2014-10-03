@@ -13,6 +13,7 @@ enum {
 	KEY_VISITORS = 0,
 	KEY_STATS = 1,
 	KEY_ERROR = 2,
+	KEY_PERCENTAGE = 3,
 };
 
 void graphics_draw_arc(GContext *ctx, GPoint p, int radius, int thickness, int start, int end) {
@@ -77,14 +78,16 @@ void process_tuple(Tuple *t)
 
 	//Decide what to do
 	switch(key) {
+		case KEY_PERCENTAGE:
+			percentage = value;
+			path_layer = layer_create(bounds);
+			layer_set_update_proc(path_layer, path_layer_update_callback);
+			layer_add_child(window_layer, path_layer);
+			break;
 		case KEY_VISITORS:
 			snprintf(visitor_buffer, sizeof("XXXXXX"), "%d", value);
 			text_layer_set_font(visitor_layer, fonts_get_system_font("RESOURCE_ID_BITHAM_30_BLACK"));
 			text_layer_set_text(visitor_layer, (char*) &visitor_buffer);
-			percentage = 270;
-			path_layer = layer_create(bounds);
-			layer_set_update_proc(path_layer, path_layer_update_callback);
-			layer_add_child(window_layer, path_layer);
 			break;
 		case KEY_STATS:
 			snprintf(stats_buffer, sizeof("XXXXXX active xxxx max: XXXXXX xxxx avg: XXXXXX"), "%s", string_value);
