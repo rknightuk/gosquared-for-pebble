@@ -63,13 +63,13 @@ void graphics_draw_arc(GContext *ctx, GPoint p, int radius, int thickness, int s
 static void path_layer_update_callback(Layer *me, GContext *ctx) {
 	(void)me;
 
-	GPoint center = {72,85};
+	GPoint center = {72,80};
 
 	graphics_context_set_stroke_color(ctx, GColorWhite);
-	graphics_draw_arc(ctx, center, 62, 1, 180, 360);
-	graphics_draw_arc(ctx, center, 57, 1, 180, 360);
-	graphics_draw_arc(ctx, center, 62, 5, 180, percentage);
-	graphics_draw_arc(ctx, center, 62, 5, 359, 360);
+	graphics_draw_arc(ctx, center, 68, 1, 180, 360);
+	graphics_draw_arc(ctx, center, 63, 1, 180, 360);
+	graphics_draw_arc(ctx, center, 68, 5, 180, percentage);
+	graphics_draw_arc(ctx, center, 68, 5, 359, 360);
 }
 
 void process_tuple(Tuple *t)
@@ -131,11 +131,11 @@ static TextLayer* init_text_layer(GRect location, GColor colour, GColor backgrou
  
 void window_load(Window *window)
 {
-	visitor_layer = init_text_layer(GRect(0, 55, 144, 80), GColorWhite, GColorClear, "RESOURCE_ID_GOTHIC_18_BOLD", GTextAlignmentCenter);
+	visitor_layer = init_text_layer(GRect(0, 50, 144, 80), GColorWhite, GColorClear, "RESOURCE_ID_GOTHIC_18_BOLD", GTextAlignmentCenter);
 	text_layer_set_text(visitor_layer, "fetching...");
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(visitor_layer));
 
-	max_layer = init_text_layer(GRect(0, 95, 144, 80), GColorWhite, GColorClear, "RESOURCE_ID_GOTHIC_18_BOLD", GTextAlignmentCenter);
+	max_layer = init_text_layer(GRect(0, 90, 144, 80), GColorWhite, GColorClear, "RESOURCE_ID_GOTHIC_18_BOLD", GTextAlignmentCenter);
 	text_layer_set_text(max_layer, " ");
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(max_layer));
 }
