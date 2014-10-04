@@ -13,3 +13,5 @@ You'll need your [GoSquared API key and site token](https://www.gosquared.com/in
         <img src="http://pblweb.com/badge/542dacf814cfa3607c0002ad/black/medium/" alt="GoSquared for Pebble is available on the Pebble appstore" />
     </a>
 </p>
+
+[MIT License](http://rmlewisuk.mit-license.org/)
