@@ -66,10 +66,22 @@ static void path_layer_update_callback(Layer *me, GContext *ctx) {
 	GPoint center = {72,80};
 
 	graphics_context_set_stroke_color(ctx, GColorWhite);
-	graphics_draw_arc(ctx, center, 68, 1, 180, 360);
-	graphics_draw_arc(ctx, center, 63, 1, 180, 360);
-	graphics_draw_arc(ctx, center, 68, 5, 180, percentage);
-	graphics_draw_arc(ctx, center, 68, 5, 359, 360);
+	graphics_draw_arc(ctx, center, 68, 1, 180, 360); // Outer arc
+	graphics_draw_arc(ctx, center, 63, 1, 180, 360); // Inner arc
+	graphics_draw_arc(ctx, center, 68, 5, 180, percentage); // Arc fill
+	graphics_draw_arc(ctx, center, 68, 5, 359, 360); // Arc end
+}
+
+static void init_layer_update_callback(Layer *me, GContext *ctx) {
+	(void)me;
+
+	GPoint center = {72,80};
+
+	graphics_context_set_stroke_color(ctx, GColorWhite);
+	graphics_draw_arc(ctx, center, 68, 5, 180, 181); // Arc start
+	graphics_draw_arc(ctx, center, 68, 1, 180, 360); // Outer arc
+	graphics_draw_arc(ctx, center, 63, 1, 180, 360); // Inner arc
+	graphics_draw_arc(ctx, center, 68, 5, 359, 360); // Arc end
 }
 
 void process_tuple(Tuple *t)
@@ -131,7 +143,7 @@ static TextLayer* init_text_layer(GRect location, GColor colour, GColor backgrou
  
 void window_load(Window *window)
 {
-	visitor_layer = init_text_layer(GRect(0, 50, 144, 80), GColorWhite, GColorClear, "RESOURCE_ID_GOTHIC_18_BOLD", GTextAlignmentCenter);
+	visitor_layer = init_text_layer(GRect(0, 50, 144, 80), GColorWhite, GColorClear, "RESOURCE_ID_GOTHIC_24_BOLD", GTextAlignmentCenter);
 	text_layer_set_text(visitor_layer, "fetching...");
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(visitor_layer));
 
@@ -184,9 +196,9 @@ void init()
 	window_layer = window_get_root_layer(window);
 	bounds = layer_get_frame(window_layer);
 
-	// path_layer = layer_create(bounds);
-	// layer_set_update_proc(path_layer, path_layer_update_callback);
-	// layer_add_child(window_layer, path_layer);
+	path_layer = layer_create(bounds);
+	layer_set_update_proc(path_layer, init_layer_update_callback);
+	layer_add_child(window_layer, path_layer);
 	
 	//Register to receive minutely updates
 	tick_timer_service_subscribe(MINUTE_UNIT, tick_callback);
